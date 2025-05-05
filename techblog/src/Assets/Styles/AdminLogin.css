@@ -1,0 +1,116 @@
+.mainDiv{
+    margin: none;
+    padding: none;
+    border: none;
+}
+
+.TechblogLogo{
+    font-style: italic;
+}
+
+.AdminNavbar{
+    color: rgb(14, 14, 198);
+    max-width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+    padding: 0 50px 0 50px;
+    height: 10vh;
+    /* border-radius: 50px; */
+}
+
+.AdminNavbarMenu{
+    text-decoration: none;
+    list-style-type: none;
+    padding-top: 10px;
+    font-weight: bold;
+}
+
+.AdminNavbarMenuLink{
+    text-decoration: none;
+    color: blue;
+}
+
+.Admin-ContentArea{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    background-color: rgba(122, 164, 173, 0.856);
+}
+
+.AdminLoginFormDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 50%;
+    line-height: 50px;
+    background-color: rgba(32, 137, 175, 0.836);
+    border-radius: 30px;
+    height: 50vh;
+}
+
+.Welcome-Admin{
+    color: rgb(251, 20, 62);
+    font-size: 30px;
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.Welcome-Admin:hover{
+    cursor: default;
+}
+
+.adminUsernameClass{
+    color: rgba(163, 19, 67, 0.921);
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 20px;
+}
+
+.adminPasswordClass{
+    color: rgba(163, 19, 67, 0.921);
+    font-size: 18px;
+    font-weight: bold;
+    padding-right: 20px;
+}
+
+#adminUsername, #adminPassword{
+    border-style: hidden;
+    width: 200px;
+    padding: 5px;
+}
+
+
+#adminUsername,#adminPassword{
+    border: 1px solid orangered;
+    border-radius: 5px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.37);
+    height: 20px;
+    width: 150px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#adminUsername,#adminPassword{
+    outline: 1px solid orangered;
+    border: none;
+}
+
+#adminUsername,#adminPassword ::placeholder{
+    color: white;
+}
+
+
+.AdminLoginDiv{
+    padding-top: 10px;
+}
+
+.AdminLoginBtn{
+    background-color: rgb(96, 37, 159);
+    border: none;
+}
+
