@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../STATIC/Navbar';
 import "../../Assets/Styles/ViewUsers.css"
 import axios from 'axios';
+import Footer from '../STATIC/Footer';
 
 function ViewUsers() {
 
@@ -96,6 +97,7 @@ function ViewUsers() {
                 </table>
             </div>
         </div>
+        <Footer/>
     </div>
   )
 }
