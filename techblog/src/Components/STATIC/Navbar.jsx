@@ -65,11 +65,23 @@ function Navbar() {
 
               {username ? (
                 <>
-                  <a href="/UserProfile" className="btn btn-sm custom-login-btn me-2">
-                    {username}
+
+                  <a href="/UserProfile" className='profile-icon-nav'>
+                    <i className="fas fa-user p-2" style={{ fontSize: '24px', color: '#23f507' }}></i>{username}
                   </a>
-                  <button className="btn btn-sm btn-outline-danger" type="button" onClick={handleLogout}>
+
+
+                  {/* <a href="/UserProfile" className="btn btn-sm custom-login-btn d-flex me-2">
+                  <i className="fas fa-user" style={{ fontSize: '24px', color: 'blue' }}></i>
+                  {username}
+                  </a> */}
+
+                  {/* <button className="btn btn-sm btn-outline-danger" type="button" onClick={handleLogout}>
                     Logout
+                  </button> */}
+
+                  <button onClick={handleLogout} className='logout-button-nav'>
+                    <i className="fas fa-sign-out-alt p-2 logout-icon-nav" style={{ fontSize: '24px', color: 'white' }}></i>
                   </button>
                 </>
               ) : (

@@ -252,3 +252,29 @@
     text-align: center;
   }
 }
+
+.logout-button-nav{
+  background-color: #005e9900;
+  border:none;
+  display: flex;
+}
+
+.profile-icon-nav{
+  text-decoration: none;
+  color: white;
+  font-family: 'Times New Roman', Times, serif;
+  display: flex;
+  align-items: center;
+  padding: 0px 10px;
+
+}
+
+.profile-icon-nav:hover{
+  transform: scale(1.2);
+  color: hotpink;
+}
+
+.logout-icon-nav:hover{
+  transform: scale(1.4);
+  color: red !important;
+}
