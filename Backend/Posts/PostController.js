@@ -114,27 +114,41 @@ const GetPostById = (req, res) => {
 };
 
 
-// const GetLatestPosts = (req, res) => {
-//   postSchema
-//     .find()
-//     .sort({ datePosted: -1 }) // latest first
-//     .limit(6)
-//     .populate("userDetails", "username name")
-//     .then((result) => {
-//       res.json({
-//         msg: "Latest posts fetched",
-//         status: 200,
-//         data: result,
-//       });
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).json({
-//         msg: "Error fetching latest posts",
-//         error: err,
-//       });
-//     });
-// };
+const DeletePostById = (req, res) => {
+  postSchema
+    .findByIdAndDelete(req.params.id)
+    .then((result) => {
+      if (!result) {
+        return res.status(404).json({
+          msg: "Post not found",
+          status: 404,
+        });
+      }
+      if (result.image?.filename) {
+        const imagePath = path.join(__dirname, '../uploads', result.image.filename);
+        fs.unlink(imagePath, (err) => {
+          if (err) {
+            console.error("Error deleting image file:", err);
+          } else {
+            console.log("Image file deleted successfully");
+          }
+        });
+      }
+      res.json({
+        msg: "Deleted Successfully",
+        status: 200,
+        data: result,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        msg: "Error deleting post",
+        status: 500,
+        err: err,
+      });
+    });
+};
+  
 
 
-module.exports={addNewPost,upload,ViewPostsByUser,ViewAllPosts,GetPostById}
+module.exports={addNewPost,upload,ViewPostsByUser,ViewAllPosts,GetPostById,DeletePostById}

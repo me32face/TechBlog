@@ -149,6 +149,31 @@ function UserProfile() {
     return formattedDate.toLocaleDateString(); 
   };
 
+  const handleDeletePost = (postId) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This post will be permanently deleted!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`http://localhost:3003/TechBlog/DeletePost/${postId}`)
+          .then(() => {
+            Swal.fire('Deleted!', 'Your post has been deleted.', 'success');
+            setPosts(posts.filter(post => post.id !== postId));
+          })
+          .catch((err) => {
+            console.error(err);
+            Swal.fire('Error!', 'Failed to delete post.', 'error');
+          });
+      }
+    });
+  };
+  
+
   return (
     <div>
       <Navbar />
@@ -216,9 +241,21 @@ function UserProfile() {
                       <p className="card-text">
                         {post.content.substring(0, 100)}...
                       </p>
-                      <a href={`/Post/${post._id}`} className="btn btn-info">
+                      {/* <a href={`/Post/${post._id}`} className="btn btn-info">
                         View Post
-                      </a>
+                      </a> */}
+                    </div>
+                    <div className='post-handle-userProfile'>
+                      <a href={`/Post/${post._id}`} className="btn btn-info">
+                          View Post
+                        </a>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleDeletePost(post._id)}
+                      >
+                        {/* <i class="fa fa-trash" aria-hidden="true"></i> */}
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </div>
