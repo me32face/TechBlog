@@ -137,3 +137,10 @@
 .modal-save-btn:hover {
     opacity: 0.9;
 }
+
+.post-handle-userProfile{
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

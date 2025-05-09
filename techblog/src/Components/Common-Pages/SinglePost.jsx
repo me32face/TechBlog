@@ -1,4 +1,5 @@
 // src/pages/SinglePost.js
+
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -13,14 +14,12 @@ function SinglePost() {
   useEffect(() => {
     axios
       .post(`http://localhost:3003/Techblog/GetPostById/${id}`)
-      .then((res)=>{
-        console.log(res);
-        setPost(res.data.data)
+      .then((res) => {
+        setPost(res.data.data);
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.log(err);
-        
-      })
+      });
   }, [id]);
 
   const formatDate = (dateString) => {
@@ -38,7 +37,7 @@ function SinglePost() {
     return (
       <div>
         <Navbar />
-        <div className="singlepost-loading text-center">Loading post...</div>
+        <div className="singlepost-loading-text">Loading post...</div>
         <Footer />
       </div>
     );
@@ -47,27 +46,31 @@ function SinglePost() {
   return (
     <div>
       <Navbar />
-      <div className="singlepost-wrapper container">
-        <div className="singlepost-header text-center">
-          <h1 className="singlepost-title">{post.title}</h1>
-          <p className="singlepost-meta">
-            By <strong>{post.userDetails?.username || "Unknown"}</strong> |{' '}
-            {formatDate(post.datePosted)}
+      <div className="singlepost-container">
+        <div className="singlepost-header-section">
+          <h1 className="singlepost-heading">{post.title}</h1>
+          <p className="singlepost-subinfo">
+            By <span className="singlepost-author">{post.userDetails?.username || "Unknown"}</span> |{' '}
+            <span className="singlepost-date">{formatDate(post.datePosted)}</span>
           </p>
         </div>
-        <div className="singlepost-image-container">
+
+        <div className="singlepost-image-wrapper">
           <img
             src={`http://localhost:3003/${post.image?.filename}` || "https://via.placeholder.com/800x400"}
             alt={post.title}
-            className="singlepost-main-image"
+            className="singlepost-original-image"
           />
         </div>
-        <div className="singlepost-body mt-4">
-          <p className="singlepost-content">{post.content}</p>
-          <p className="singlepost-category">
+
+        <div className="singlepost-content-section">
+          {post.content.split('\n').map((para, index) => (
+            <p key={index} className="singlepost-full-content">{para}</p>
+          ))}       
+          <p className="singlepost-category-info">
             <strong>Category:</strong> {post.category}
           </p>
-          <p className="singlepost-tags">
+          <p className="singlepost-tags-info">
             <strong>Tags:</strong> {post.hashtags}
           </p>
         </div>

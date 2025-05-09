@@ -26,6 +26,8 @@ Router.post("/AllPosts",postController.ViewAllPosts);
 Router.post("/GetPostById/:id", postController.GetPostById);
 // Router.get("/Techblog/LatestPosts", postController.GetLatestPosts);
 Router.get("/AllPosts", postController.ViewAllPosts);
+Router.delete("/DeletePost/:id", postController.DeletePostById);
+
 
 
 
