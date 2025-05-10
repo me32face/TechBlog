@@ -54,4 +54,5 @@
 
 .userlogin-link:hover {
   color: #084298;
+  text-decoration: underline !important;
 }
