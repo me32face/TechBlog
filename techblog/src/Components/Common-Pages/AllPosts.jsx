@@ -44,13 +44,15 @@ function AllPosts() {
                     className="card-img-top allposts-image"
                     alt={post.title}
                   />
-                  <div className="card-body">
-                    <h5 className="card-title allposts-post-title">{post.title}</h5>
+                  <div className="card-body allPosts-card-custom">
+                    <h5 className="card-title allposts-post-title">{post.title.substring(0,100)}</h5>
                     <p className="allposts-author">By <strong>{post.userDetails?.username || "Unknown"}</strong></p>
                     <p className="allposts-date">Posted on: {formatDate(post.datePosted)}</p>
                     <p className="allposts-snippet">{post.content.substring(0, 100)}...</p>
                     <p className="allposts-category">Category: <em>{post.category}</em></p>
                     <p className="allposts-tags">{post.hashtags}</p>
+                  </div>
+                  <div className='viewMore-btn-allPosts'>
                     <a href={`/post/${post._id}`} className="btn allposts-btn">View More</a>
                   </div>
                 </div>

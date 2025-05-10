@@ -33,7 +33,7 @@ function ViewUsers() {
                         <th className="thBorderSetting-viewUsersPage">Name</th>
                         <th className="thBorderSetting-viewUsersPage">Username</th>
                         <th className="thBorderSetting-viewUsersPage">Email</th>
-                        <th className="thBorderSetting-viewUsersPage">Action</th>
+                        <th className="thBorderSetting-viewUsersPage">.</th>
                     </tr>
                     </thead>
 

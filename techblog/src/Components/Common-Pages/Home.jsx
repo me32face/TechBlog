@@ -53,15 +53,17 @@ function Home() {
                   alt={post.title}
                 />
                 <div className="card-body">
-                  <h5 className="card-title">{post.title}</h5>
+                  <h5 className="card-title">{post.title.substring(0, 75)}</h5>
                   <p className="card-text">
                     By <strong>{post.userDetails?.username}</strong>
                   </p>
                   <p className="card-text">
-                    {post.content.substring(0, 80)}...
+                    {post.content.substring(0, 150)}...
                   </p>
-                  <a href={`/post/${post._id}`} className="btn btn-primary">
-                    View More 
+                </div>
+                <div className="viewMore-div-home">
+                  <a href={`/post/${post._id}`} className="btn btn-primary viewMore-btn-home">
+                      View More 
                   </a>
                 </div>
               </div>

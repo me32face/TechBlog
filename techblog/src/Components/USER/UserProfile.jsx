@@ -161,9 +161,40 @@ function UserProfile() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios.delete(`http://localhost:3003/TechBlog/DeletePost/${postId}`)
-          .then(() => {
-            Swal.fire('Deleted!', 'Your post has been deleted.', 'success');
-            setPosts(posts.filter(post => post.id !== postId));
+          .then((e) => {
+            console.log(e);
+            
+            if(e.status===200){
+              Swal.fire({
+                title: 'Deleted!',
+                text: 'Post deleted successfully',
+                icon: 'success',
+                confirmButtonText: 'Okay',
+                timer: 2000, // Optional: Auto close after 2 seconds
+                showConfirmButton: true 
+              })
+              setPosts(posts.filter(post => post._id !== postId));
+            }
+            else if (e.status===404){
+              Swal.fire({
+                title: 'Error!',
+                text: 'Your post not deleted.',
+                icon: 'warning',
+                confirmButtonText: 'Okay',
+                // timer: 2000, // Optional: Auto close after 2 seconds
+                showConfirmButton: true 
+              })
+            }
+            else if(e.status===500){
+              Swal.fire({
+                title: 'Error!',
+                text: 'Something went wrong. Please try after sometime or contact admin',
+                icon: 'warning',
+                confirmButtonText: 'Okay',
+                // timer: 2000, // Optional: Auto close after 2 seconds
+                showConfirmButton: true 
+              })
+            }
           })
           .catch((err) => {
             console.error(err);

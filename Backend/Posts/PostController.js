@@ -124,21 +124,13 @@ const DeletePostById = (req, res) => {
           status: 404,
         });
       }
-      if (result.image?.filename) {
-        const imagePath = path.join(__dirname, '../uploads', result.image.filename);
-        fs.unlink(imagePath, (err) => {
-          if (err) {
-            console.error("Error deleting image file:", err);
-          } else {
-            console.log("Image file deleted successfully");
-          }
+      if(result){
+        res.json({
+          msg: "Deleted Successfully",
+          status: 200,
+          data: result,
         });
       }
-      res.json({
-        msg: "Deleted Successfully",
-        status: 200,
-        data: result,
-      });
     })
     .catch((err) => {
       res.status(500).json({

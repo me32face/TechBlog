@@ -36,7 +36,8 @@
   overflow: hidden;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
   transition: transform 0.6s;
-  /* height:max-content */
+  min-height: 600px;
+  max-height: 600px;
 }
 
 .allposts-card:hover {
@@ -73,11 +74,17 @@
   background-color: #007bff;
   color: white;
   font-weight: 500;
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 6px 16px;
   transition: background-color 0.3s;
 }
 
 .allposts-btn:hover {
   background-color: #0056b3;
+  color: rgb(51, 255, 0);
+}
+
+.viewMore-btn-allPosts{
+  padding: 20px;
+  padding-top: 0px;
 }
