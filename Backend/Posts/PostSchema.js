@@ -28,6 +28,17 @@ const postSchema = new mongoose.Schema({
     datePosted:{
         type:Date,
         required:true
+    },
+    lastUpdated: {
+        type: Date
+    },
+    updateCount: {
+        type: Number,
+        default: 0
+    },
+    isActive:{
+        type:Boolean,
+        default:false
     }
 
 })

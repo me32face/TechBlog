@@ -1,37 +1,74 @@
-import React from 'react'
-import "../../Assets/Styles/AdminLogin.css"
+// AdminLogin.jsx
+import React, { useState } from 'react';
+import '../../Assets/Styles/AdminLogin.css';
+import { useNavigate } from 'react-router-dom';
 
 function AdminLogin() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Hardcoded credentials (you can change these)
+    const adminUsername = "admin";
+    const adminPassword = "admin123";
+
+    if (username === adminUsername && password === adminPassword) {
+      localStorage.setItem("isAdminLoggedIn", true);
+      navigate('/dashboard');
+    } else {
+      setError("Invalid username or password.");
+    }
+  };
+
+
   return (
-    <div className='mainDiv'>
-        <div className='AdminNavbar'>
-          <h2 className='TechblogLogo' >TechBlog</h2>
-          <ul>
-            <li className='AdminNavbarMenu'><a className='AdminNavbarMenuLink' href="">Home</a></li>
-          </ul>
+    <div className="techblog-admin-login-container">
+      <form onSubmit={handleSubmit} className="techblog-admin-login-form">
+        <h2 className="techblog-admin-login-title">Admin Login</h2>
+        
+        {error && (
+          <p className="techblog-admin-login-error">{error}</p>
+        )}
+
+        <div className="techblog-admin-input-group">
+          <label htmlFor="techblog-username" className="techblog-admin-label">
+            Username
+          </label>
+          <input
+            type="text"
+            id="techblog-username"
+            className="techblog-admin-input"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
         </div>
 
-        <div className='Admin-ContentArea'>
-          <form className='AdminLoginFormDiv'>
-              <h3 className='Welcome-Admin'>Welcome Admin</h3>
-
-              <div>
-                <label htmlFor="adminUsername" className='adminUsernameClass' >Username : </label>
-                <input type="text" id="adminUsername" name='adminUsername' required/>
-              </div>
-
-              <div>
-                <label htmlFor="adminPassword" className='adminPasswordClass' >Password : </label>
-                <input type="text" id="adminPassword" name='adminPassword'required/>
-              </div>
-
-              <div className='AdminLoginDiv' >
-                <button className='AdminLoginBtn btn btn-danger' type='submit'>Login</button>
-              </div>
-            </form>
+        <div className="techblog-admin-input-group">
+          <label htmlFor="techblog-password" className="techblog-admin-label">
+            Password
+          </label>
+          <input
+            type="password"
+            id="techblog-password"
+            className="techblog-admin-input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
+
+        <button 
+          type="submit" 
+          className="techblog-admin-login-button"
+        >
+          Login
+        </button>
+      </form>
     </div>
-  )
+  );
 }
 
-export default AdminLogin
+export default AdminLogin;
