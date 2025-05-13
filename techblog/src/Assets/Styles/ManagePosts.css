@@ -1,0 +1,93 @@
+.unique-manage-posts-container {
+  padding: 40px 20px;
+  background-color: #f5f8fc;
+  min-height: 100vh;
+}
+
+.unique-manage-posts-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 40px;
+}
+
+.unique-posts-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.unique-post-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+  width: 330px;
+  padding: 25px;
+  transition: transform 0.3s ease;
+}
+
+.unique-post-card:hover {
+  transform: translateY(-6px);
+}
+
+.unique-post-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 12px;
+}
+
+.unique-post-author,
+.unique-post-category {
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.unique-post-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.unique-view-btn,
+.unique-edit-btn,
+.unique-delete-btn {
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.unique-view-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.unique-view-btn:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.unique-edit-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.unique-edit-btn:hover {
+  background-color: #1e7e34;
+}
+
+.unique-delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.unique-delete-btn:hover {
+  background-color: #a71d2a;
+}

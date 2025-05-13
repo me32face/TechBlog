@@ -17,6 +17,10 @@ import AllPosts from './Components/Common-Pages/AllPosts';
 import NewPost from './Components/Common-Pages/NewPost';
 import UserProfile from './Components/USER/UserProfile';
 import SinglePost from './Components/Common-Pages/SinglePost';
+import EditPost from './Components/Common-Pages/EditPost';
+import AdminNavbar from './Components/ADMIN/AdminNavbar';
+import ManagePosts from './Components/ADMIN/ManagePosts';
+import AdminHome from './Components/ADMIN/AdminHome';
 
 
 
@@ -32,12 +36,19 @@ function App() {
           <Route path='/' element={<Home/>}/>
           <Route path='/Categories' element={<Categories/>}/>
           <Route path='/User-Registration' element={<UserRegistration/>}/>
-          <Route path='/ViewUsers' element={<ViewUsers/>}/>
+          <Route path='/ManageUsers' element={<ViewUsers/>}/>
           <Route path='/ForgotPassword' element={<ForgotPassword/>}/>
           <Route path='/AllPosts' element={<AllPosts/>}/>
           <Route path='/NewPost' element={<NewPost/>}/>
           <Route path='/UserProfile' element={<UserProfile/>}/>
           <Route path="/post/:id" element={<SinglePost/>}/>
+          <Route path="/EditPost/:id" element={<EditPost/>}/>
+          <Route path='/AdminNav' element={<AdminNavbar/>}/>
+          <Route path='/ManagePosts' element={<ManagePosts/>}/>
+          <Route path='/dashboard' element={<AdminHome/>}/>
+
+
+
 
 
 

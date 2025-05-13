@@ -140,7 +140,79 @@ const DeletePostById = (req, res) => {
       });
     });
 };
-  
+
+const updatePost = ((req, res) => {
+  const postId = req.params.id;
+  const { title, content, category, hashtags } = req.body;
+
+  // Optional validation
+  if (!title || !content || !category) {
+    return res.json({
+      msg: "Title, content, and category are required fields.",
+      status: 400
+    });
+  }
+
+  postSchema.findById(postId)
+    .then((post) => {
+      if (!post) {
+        return res.json({
+          msg: "Post not found",
+          status: 404
+        });
+      }
+
+      post.title = title;
+      post.content = content;
+      post.category = category;
+      post.hashtags = hashtags || "";
+      post.datePosted = new Date(); // Optional: reset datePosted or use lastUpdated separately
+      post.lastUpdated = new Date();
+      post.updateCount = (post.updateCount || 0) + 1;
+
+      return post.save();
+    })
+    .then((updatedPost) => {
+      res.json({
+        msg: "Post updated successfully",
+        status: 200,
+        data: updatedPost
+      });
+    })
+    .catch((err) => {
+      console.log("Error updating post:", err);
+      res.json({
+        msg: "Internal server error",
+        err: err,
+        status: 500
+      });
+    });
+});
 
 
-module.exports={addNewPost,upload,ViewPostsByUser,ViewAllPosts,GetPostById,DeletePostById}
+//Admin Manage posts from here
+
+const managePosts = (req, res) => {
+  postSchema.find()
+    .populate("userDetails", "username name") 
+    .then((posts) => {
+      res.json({
+        msg: "Successfully fetched posts",
+        status: 200,
+        data: posts,
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.json({
+        msg: "Failed to fetch posts",
+        status: 500,
+        err: err,
+      });
+    });
+};
+
+
+
+
+module.exports={addNewPost,upload,ViewPostsByUser,ViewAllPosts,GetPostById,DeletePostById,updatePost,managePosts}

@@ -1,7 +1,7 @@
 // src/pages/SinglePost.js
 
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../STATIC/Navbar';
 import Footer from '../STATIC/Footer';
@@ -53,6 +53,13 @@ function SinglePost() {
             By <span className="singlepost-author">{post.userDetails?.username || "Unknown"}</span> |{' '}
             <span className="singlepost-date">{formatDate(post.datePosted)}</span>
           </p>
+          {localStorage.getItem("userId") === post.userDetails?._id && (
+            <div className="singlepost-edit-button text-center mt-4">
+              <Link to={`/EditPost/${post._id}`} className="btn btn-outline-primary">
+                Edit Post
+              </Link>
+            </div>
+          )}
         </div>
 
         <div className="singlepost-image-wrapper">

@@ -3,12 +3,20 @@ import Navbar from '../STATIC/Navbar';
 import "../../Assets/Styles/ViewUsers.css"
 import axios from 'axios';
 import Footer from '../STATIC/Footer';
+import { useNavigate } from 'react-router-dom';
+import AdminNavbar from './AdminNavbar';
+
 
 function ViewUsers() {
 
+    const navigate = useNavigate(); 
     const [users,setUsers] = useState([]);
+    // const isAdmin = localStorage.getItem("isAdmin") === "true";
+
 
     useEffect(()=>{
+        // if (!isAdmin) return;
+
         axios
         .post('http://localhost:3003/TechBlog/ViewUsers')
         .then((res)=>{
@@ -20,11 +28,16 @@ function ViewUsers() {
             alert("Error fetching users");
         })
         
-    },[])
+},[{/*isAdmin*/}])
+
+    // if (!isAdmin) {
+    //     navigate("/AdminLogin");
+    //     return null;
+    // }
 
   return (
     <div>
-        <Navbar/>
+        <AdminNavbar/>
         <div className='View-User-main-page'>
             <div className='UserDetailsTable'>
                 <table>

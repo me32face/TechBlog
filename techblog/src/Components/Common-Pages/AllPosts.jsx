@@ -9,7 +9,7 @@ function AllPosts() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3003/Techblog/AllPosts")
+      .get("http://localhost:3003/Techblog/AllPosts")
       .then(res => setPosts(res.data.data))
       .catch(err => console.error("Failed to fetch posts", err));
   }, []);
