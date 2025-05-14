@@ -47,7 +47,7 @@ const addNewPost=((req,res)=>{
 })
 
 const ViewPostsByUser = ((req,res)=>{
-    postSchema.find({userDetails:req.params.id})
+    postSchema.find({userDetails:req.params.id} && { isActive: true })
     .then((result)=>{
         res.json({
             msg:"successfully found",
@@ -65,7 +65,7 @@ const ViewPostsByUser = ((req,res)=>{
 })
 
 const ViewAllPosts=((req,res)=>{
-    postSchema.find()
+    postSchema.find({ isActive: true })
     .populate("userDetails", "username name")
     .then((result)=>{
         res.json({
@@ -213,6 +213,54 @@ const managePosts = (req, res) => {
 };
 
 
+const getPendingPosts = (req, res) => {
+  postSchema.find({ isActive: false })
+    .populate("userDetails", "username name")
+    .then((posts) => {
+      res.json({
+        msg: "Fetched pending posts",
+        status: 200,
+        data: posts
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        msg: "Error fetching pending posts",
+        err: err,
+        status: 500
+      });
+    });
+};
 
 
-module.exports={addNewPost,upload,ViewPostsByUser,ViewAllPosts,GetPostById,DeletePostById,updatePost,managePosts}
+const approvePost = (req, res) => {
+  const postId = req.params.id;
+
+  postSchema.findByIdAndUpdate(postId, { isActive: true }, { new: true })
+    .then((updatedPost) => {
+      if (!updatedPost) {
+        return res.status(404).json({
+          msg: "Post not found",
+          status: 404
+        });
+      }
+      res.json({
+        msg: "Post approved successfully",
+        status: 200,
+        data: updatedPost
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        msg: "Error approving post",
+        err: err,
+        status: 500
+      });
+    });
+};
+
+
+
+
+
+module.exports={addNewPost,upload,ViewPostsByUser,ViewAllPosts,GetPostById,DeletePostById,updatePost,managePosts,getPendingPosts,approvePost}

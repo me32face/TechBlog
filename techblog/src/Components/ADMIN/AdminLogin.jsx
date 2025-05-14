@@ -1,7 +1,7 @@
-// AdminLogin.jsx
 import React, { useState } from 'react';
 import '../../Assets/Styles/AdminLogin.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function AdminLogin() {
   const [username, setUsername] = useState('');
@@ -12,18 +12,16 @@ function AdminLogin() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Hardcoded credentials (you can change these)
-    const adminUsername = "admin";
-    const adminPassword = "admin123";
-
-    if (username === adminUsername && password === adminPassword) {
-      localStorage.setItem("isAdminLoggedIn", true);
-      navigate('/dashboard');
-    } else {
-      setError("Invalid username or password.");
-    }
+    axios
+      .post("http://localhost:3003/Techblog/AdminLogin", { username, password })
+      .then((response) => {
+        localStorage.setItem("isAdminLoggedIn", true);
+        navigate('/dashboard');
+      })
+      .catch((error) => {
+        setError("Invalid username or password.");
+      });
   };
-
 
   return (
     <div className="techblog-admin-login-container">

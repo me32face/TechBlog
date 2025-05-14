@@ -3,6 +3,22 @@ const Router = express.Router();
 
 const userController = require("./User/UserRegistrationController");
 const postController = require("./Posts/PostController");
+const adminController = require("./Admin/AdminController");
+
+
+
+// Route for managing posts (viewing all posts for admin)
+Router.post("/ManagePosts", postController.managePosts);       // Changed to GET to fetch posts for management
+Router.post("/AdminLogin", adminController.adminLogin); 
+Router.get("/admin/pending-posts", postController.getPendingPosts);
+Router.put("/admin/approve-posts/:id", postController.approvePost);
+Router.get("/admin-dashboard", adminController.getDashboardCounts);
+
+
+
+
+
+
 
 // User Routes
 Router.post("/userRegistration", userController.upload, userController.adduser);
@@ -30,10 +46,6 @@ Router.delete("/DeletePost/:id", postController.DeletePostById); // Delete post 
 Router.put("/UpdatePost/:id", postController.updatePost);    // Update post by ID
 
 
-
-
-// Route for managing posts (viewing all posts for admin)
-Router.post("/ManagePosts", postController.managePosts);       // Changed to GET to fetch posts for management
 
 
 module.exports = Router;
