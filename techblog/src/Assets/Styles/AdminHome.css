@@ -1,0 +1,181 @@
+/* AdminHome.css */
+
+/* Wrapper for the admin home page */
+.admin-home-wrapper {
+  font-family: Arial, sans-serif !important;
+  background-color: #a4a2a2 !important;
+  min-height: 100vh !important;
+}
+
+/* Dashboard title */
+.admin-home-title {
+  font-size: 2.5rem !important;
+  margin-bottom: 30px !important;
+  text-align: center !important;
+  color: #333 !important;
+  padding: 30px !important;
+}
+
+/* Dashboard card container */
+.admin-home-card-container {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+  gap: 20px !important;
+  margin-bottom: 40px !important;
+  padding: 30px !important;
+}
+
+/* Individual dashboard cards */
+.admin-home-card {
+  background-color: #ffffff !important;
+  border-radius: 12px !important;
+  padding: 25px !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+  transition: transform 0.3s ease-in-out !important;
+}
+
+.admin-home-card:hover {
+  transform: translateY(-10px) !important;
+}
+
+/* Title of the card */
+.admin-home-card-title {
+  font-size: 1.4rem !important;
+  margin-bottom: 15px !important;
+  color: #555 !important;
+}
+
+/* Value inside the card */
+.admin-home-card-value {
+  font-size: 1.8rem !important;
+  font-weight: bold !important;
+  color: #007bff !important;
+  margin-top: 10px !important;
+}
+
+/* Button to view pending posts */
+.admin-home-view-posts-btn {
+  background-color: #007bff !important;
+  color: white !important;
+  padding: 12px 18px !important;
+  border: none !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s !important;
+  font-size: 1rem !important;
+}
+
+.admin-home-view-posts-btn:hover {
+  background-color: #0056b3 !important;
+}
+
+/* Modal for pending posts list */
+.admin-home-modal {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.admin-home-modal-content {
+  background-color: #ffffff !important;
+  padding: 40px !important;
+  border-radius: 12px !important;
+  width: 70% !important;
+  max-width: 900px !important;
+  overflow-y: auto !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.admin-home-modal-title {
+  font-size: 2rem !important;
+  margin-bottom: 20px !important;
+  color: #333 !important;
+  text-align: center !important;
+}
+
+/* Pending posts list */
+.admin-home-pending-posts-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin-bottom: 20px !important;
+}
+
+.admin-home-pending-post-item {
+  margin-bottom: 15px !important;
+  padding: 15px !important;
+  background-color: #f9f9f9 !important;
+  border-radius: 8px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05) !important;
+  transition: background-color 0.3s !important;
+}
+
+.admin-home-pending-post-item:hover {
+  background-color: #e9ecef !important;
+}
+
+.admin-home-view-post-btn {
+  background-color: #28a745 !important;
+  color: white !important;
+  padding: 6px 12px !important;
+  border: none !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s !important;
+}
+
+.admin-home-view-post-btn:hover {
+  background-color: #218838 !important;
+}
+
+/* Modal close button */
+.admin-home-close-btn {
+  background-color: #dc3545 !important;
+  color: white !important;
+  padding: 12px 18px !important;
+  border: none !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s !important;
+  font-size: 1rem !important;
+}
+
+.admin-home-close-btn:hover {
+  background-color: #c82333 !important;
+}
+
+/* Modal for individual post details */
+.admin-home-modal-text {
+  margin-bottom: 15px !important;
+  font-size: 1.2rem !important;
+  color: #555 !important;
+}
+
+.admin-home-modal-actions {
+  display: flex !important;
+  gap: 20px !important;
+  justify-content: flex-end !important;
+}
+
+.admin-home-approve-btn {
+  background-color: #007bff !important;
+  color: white !important;
+  padding: 12px 20px !important;
+  border: none !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s !important;
+  font-size: 1rem !important;
+}
+
+.admin-home-approve-btn:hover {
+  background-color: #0056b3 !important;
+}
