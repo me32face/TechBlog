@@ -2,178 +2,165 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../Assets/Styles/AdminHome.css";
 import AdminNavbar from "./AdminNavbar";
+import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 function AdminHome() {
-  const [stats, setStats] = useState({
-    totalUsers: 0,
-    approvedPosts: 0,
-    pendingPosts: 0
-  });
+  const isAdmin = localStorage.getItem("isAdminLoggedIn");
+  const navigate = useNavigate();
 
-  const [numOfPendingPost,setNumOfPendingPost] =useState();
-  const [posts,setPosts] = useState()
+  useEffect(() => {
+    if (!isAdmin) {
+      Swal.fire({
+        title: 'Restricted!',
+        text: 'If you are an Admin, please login',
+        icon: 'error',
+        timerProgressBar: true,
+        showConfirmButton: true
+      });
+      navigate("/AdminLogin");
+    }
+  }, []);
+
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [posts, setPosts] = useState(0);
+  const [numOfPendingPost, setNumOfPendingPost] = useState(0);
   const [pendingPosts, setPendingPosts] = useState([]);
   const [showPendingListModal, setShowPendingListModal] = useState(false);
   const [currentPost, setCurrentPost] = useState(null);
 
-  useEffect(() => {
-    axios
-    .get("http://localhost:3003/Techblog/AllPosts")
-    .then(function(response) {
-      console.log("All Posts loaded:", response.data);
-      setPosts(response.data.data.length);
-    })
-    .catch(function(error) {
-      console.error("Error loading dashboard stats:", error);
-    });
+  const fetchDashboardData = () => {
+    axios.post("http://localhost:3003/Techblog/ViewUserData")
+      .then(res => setTotalUsers(res.data.data.length))
+      .catch(err => console.error("Error loading users:", err));
 
-    axios
-    .get("http://localhost:3003/Techblog/admin/pending-posts")
-    .then((res) => {
-      console.log("Pending posts fetched:", res.data.data);
-      setNumOfPendingPost(res.data.data.length)
-      if (Array.isArray(res.data.data)) {
-        setPendingPosts(res.data.data);
-      } else {
-        console.warn("Expected an array but got:", res.data);
-      }
-    })
-    .catch((err) => {
-      console.error("Error fetching pending posts:", err);
-    });
-    
+    axios.get("http://localhost:3003/Techblog/AllPosts")
+      .then(res => setPosts(res.data.data.length))
+      .catch(err => console.error("Error loading posts", err));
+
+    axios.get("http://localhost:3003/Techblog/admin/pending-posts")
+      .then(res => {
+        setNumOfPendingPost(res.data.data.length);
+        if (Array.isArray(res.data.data)) {
+          setPendingPosts(res.data.data);
+        }
+      })
+      .catch(err => console.error("Error fetching pending posts:", err));
+  };
+
+  useEffect(() => {
+    fetchDashboardData();
   }, []);
 
   const handleApprove = (postId) => {
     axios.put(`http://localhost:3003/Techblog/admin/approve-posts/${postId}`)
-      .then(function(response) {
-        console.log("Pending posts fetched:", response.data);
-        if (Array.isArray(response.data)) {
-          setPendingPosts(response.data);
-        } else {
-          console.error("Expected an array but got:", response.data);
-          setPendingPosts([]);
-        }
-
-        const updatedPending = pendingPosts.filter((post) => post._id !== postId);
-        setPendingPosts(updatedPending);
-
-        const updatedStats = {
-          ...stats,
-          pendingPosts: stats.pendingPosts - 1,
-          approvedPosts: stats.approvedPosts + 1,
-        };
-        setStats(updatedStats);
-
+      .then(res => {
+        const updated = pendingPosts.filter(post => post._id !== postId);
+        setPendingPosts(updated);
+        setNumOfPendingPost(prev => prev - 1);
+        setPosts(prev => prev + 1);
         setCurrentPost(null);
+        fetchDashboardData();
       })
-      .catch(function(error) {
-        console.error("Error approving post:", error);
-      });
+      .catch(err => console.error("Error approving post:", err));
   };
 
-  const openPostModal = (post) => {
-    setCurrentPost(post);
-  };
-
-  const closePostModal = () => {
-    setCurrentPost(null);
+  // New function to delete post
+  const handleDelete = (postId) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This post will be permanently deleted!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`http://localhost:3003/Techblog/DeletePost/${postId}`)
+          .then(() => {
+            const updated = pendingPosts.filter(post => post._id !== postId);
+            setPendingPosts(updated);
+            setNumOfPendingPost(prev => prev - 1);
+            setCurrentPost(null);
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'Post has been deleted.',
+              icon: 'success',
+              timer: 1000,
+              timerProgressBar: true,
+              showConfirmButton: false,
+            });
+            fetchDashboardData();
+          })
+          .catch(err => {
+            console.error('Error deleting post:', err);
+            Swal.fire('Error', 'Failed to delete the post.', 'error');
+          });
+      }
+    });
   };
 
   return (
-    <div className="admin-home-wrapper">
+    <div className="admin-home-layout">
       <AdminNavbar />
-      <div className="admin-home-dashboard">
-        <h2 className="admin-home-title">Welcome to Admin Dashboard</h2>
-        <div className="admin-home-card-container">
+      <div className="admin-home-main-content">
+        <h2 className="admin-home-title">Admin Dashboard</h2>
+        <div className="admin-home-cards">
           <div className="admin-home-card">
-            <h3 className="admin-home-card-title">Total Users</h3>
-            <p className="admin-home-card-value">{stats.totalUsers}</p>
+            <h3>Total Users</h3>
+            <p>{totalUsers}</p>
           </div>
           <div className="admin-home-card">
-            <h3 className="admin-home-card-title">Total Posts</h3>
-            <p className="admin-home-card-value">{posts}</p>
+            <h3>Total Posts</h3>
+            <p>{posts}</p>
           </div>
           <div className="admin-home-card">
-            <h3 className="admin-home-card-title">Pending Posts</h3>
-            <p className="admin-home-card-value">{numOfPendingPost}</p>
-            <button
-              className="admin-home-view-posts-btn"
-              onClick={() => setShowPendingListModal(true)}
-            >
-              View Pending Posts
-            </button>
+            <h3>Pending Posts</h3>
+            <p>{numOfPendingPost}</p>
+            <button onClick={() => setShowPendingListModal(true)}>View</button>
           </div>
         </div>
-      </div>
 
-      {/* Modal for pending posts list */}
-      {showPendingListModal && (
-        <div className="admin-home-modal">
-          <div className="admin-home-modal-content">
-            <h2 className="admin-home-modal-title">Pending Posts</h2>
-            <ul className="admin-home-pending-posts-list">
-              {Array.isArray(pendingPosts) && pendingPosts.length > 0 ? (
-                pendingPosts.map((post) => (
-                  <li key={post._id} className="admin-home-pending-post-item">
-                    <h4>{post.title}</h4>
-                    <button
-                      className="admin-home-view-post-btn"
-                      onClick={() => openPostModal(post)}
-                    >
-                      View
-                    </button>
-                  </li>
-                ))
-              ) : (
-                <p>No pending posts to display.</p>
-              )}
-            </ul>
-
-            <button
-              className="admin-home-close-btn"
-              onClick={() => setShowPendingListModal(false)}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Modal for individual post details */}
-      {currentPost && (
-        <div className="admin-home-modal">
-          <div className="admin-home-modal-content">
-            <h2 className="admin-home-modal-title">Post Details</h2>
-            <p className="admin-home-modal-text">
-              <strong>Title:</strong> {currentPost.title}
-            </p>
-            <p className="admin-home-modal-text">
-              <strong>Author:</strong> {currentPost.userDetails.username}
-            </p>
-            <p className="admin-home-modal-text">
-              <strong>Category:</strong> {currentPost.category}
-            </p>
-            <p className="admin-home-modal-text">
-              <strong>Content:</strong> {currentPost.content}
-            </p>
-            <div className="admin-home-modal-actions">
-              <button
-                className="admin-home-approve-btn"
-                onClick={() => handleApprove(currentPost._id)}
-              >
-                Approve
-              </button>
-              <button
-                className="admin-home-close-btn"
-                onClick={closePostModal}
-              >
-                Close
-              </button>
+        {/* Modal: List of Pending Posts */}
+        {showPendingListModal && (
+          <div className="admin-modal">
+            <div className="admin-modal-content">
+              <h4>Pending Posts</h4>
+              <ul>
+                {pendingPosts.length > 0 ? (
+                  pendingPosts.map((post) => (
+                    <li key={post._id}>
+                      {post.title}
+                      <button onClick={() => setCurrentPost(post)}>View</button>
+                    </li>
+                  ))
+                ) : (
+                  <p>No pending posts.</p>
+                )}
+              </ul>
+              <button onClick={() => setShowPendingListModal(false)}>Close</button>
             </div>
           </div>
-        </div>
-      )}
+        )}
+
+        {/* Modal: View Single Post */}
+        {currentPost && (
+          <div className="admin-modal">
+            <div className="admin-modal-content">
+              <h4>Post Details</h4>
+              <p><strong>Title:</strong> {currentPost.title}</p>
+              <p><strong>Author:</strong> {currentPost.userDetails?.username}</p>
+              <p><strong>Category:</strong> {currentPost.category}</p>
+              <p><strong>Content:</strong> {currentPost.content}</p>
+              <div className="admin-modal-buttons">
+                <button onClick={() => handleApprove(currentPost._id)}>Approve</button>
+                <button onClick={() => handleDelete(currentPost._id)} className="delete-btn">Delete</button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

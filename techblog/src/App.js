@@ -43,7 +43,6 @@ function App() {
           <Route path='/UserProfile' element={<UserProfile/>}/>
           <Route path="/post/:id" element={<SinglePost/>}/>
           <Route path="/EditPost/:id" element={<EditPost/>}/>
-          <Route path='/AdminNav' element={<AdminNavbar/>}/>
           <Route path='/ManagePosts' element={<ManagePosts/>}/>
           <Route path='/dashboard' element={<AdminHome/>}/>
 

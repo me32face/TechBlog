@@ -40,12 +40,15 @@ function Navbar() {
                 <a className="nav-link custom-navbar-link" href="/">Home</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link custom-navbar-link" href="#">About</a>
+                <a className="nav-link custom-navbar-link" href="/NewPost"> Add New Post</a>
               </li>
               <li className="nav-item">
                 <a className="nav-link custom-navbar-link" href="/AllPosts">All Posts</a>
               </li>
-              <li className="nav-item dropdown">
+              <li className="nav-item">
+                <a className="nav-link custom-navbar-link" href="#recent-posts">Recent Posts</a>
+              </li>
+              {/* <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle custom-navbar-link" href="#" role="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   Dropdown
@@ -55,13 +58,13 @@ function Navbar() {
                   <li><a className="dropdown-item custom-dropdown-item" href="#">Another action</a></li>
                   <li><a className="dropdown-item custom-dropdown-item" href="#">Something else here</a></li>
                 </ul>
-              </li>
+              </li> */}
             </ul>
 
             {/* Search Form inside Collapse */}
             <form className="d-flex custom-search-wrapper mt-3 mt-lg-0" role="search">
-              <input className="form-control form-control-sm custom-search-input me-2" type="search" placeholder="Search" aria-label="Search" />
-              <button className="btn btn-sm custom-search-btn" type="submit">Search</button>
+              {/* <input className="form-control form-control-sm custom-search-input me-2" type="search" placeholder="Search" aria-label="Search" />
+              <button className="btn btn-sm custom-search-btn" type="submit">Search</button> */}
 
               {username ? (
                 <>

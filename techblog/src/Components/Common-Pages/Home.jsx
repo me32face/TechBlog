@@ -38,7 +38,7 @@ function Home() {
       </section>
 
       {/* All Posts Section */}
-      <section className="all-posts-section">
+      <section id="recent-posts" className="all-posts-section">
         <h2 className="mb-4">Recent Posts</h2>
         <div className="row">
           {allPosts

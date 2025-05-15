@@ -1,76 +1,104 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../STATIC/Navbar'
-import Footer from '../STATIC/Footer'
+import React, { useEffect, useState } from 'react';
+import Navbar from '../STATIC/Navbar';
+import Footer from '../STATIC/Footer';
 import "../../Assets/Styles/NewPost.css";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import Swal from 'sweetalert2'; // ✅ Import Swal
 
 function NewPost() {
 
-  const navigate=useNavigate()
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userId = localStorage.getItem("userId");
     if (!userId) {
-      alert("You must be logged in to access this page.");
-      navigate("/UserLogin");
+      Swal.fire({
+        icon: "warning",
+        title: "Login Required",
+        text: "You must be logged in to access this page.",
+      }).then(() => {
+        navigate("/UserLogin");
+      });
     }
   }, []);
 
-  const usersId=localStorage.getItem("userId")
-  console.log(usersId);
-  
+  const usersId = localStorage.getItem("userId");
 
   const [newPostData, setNewPostData] = useState({
-    userId:`${usersId}`,
+    userId: `${usersId}`,
     title: '',
     content: '',
     category: '',
     hashtags: '',
-    image: '' 
+    image: ''
   });
-  
+
   const handleChange = (e) => {
     setNewPostData({
-      ...newPostData,[e.target.name]:e.target.value
+      ...newPostData,
+      [e.target.name]: e.target.value
     });
   };
 
-  const handleImageChange = (e)=>{
+  const handleImageChange = (e) => {
     const file = e.target.files[0];
-    setNewPostData({ ...newPostData, image:file});
-  }
+    setNewPostData({ ...newPostData, image: file });
+  };
 
-  const SubmitForm=(e)=>{
+  const SubmitForm = (e) => {
     e.preventDefault();
 
-    axios
-    .post('http://localhost:3003/TechBlog/AddPost/',newPostData,{headers:{"Content-Type" :"multipart/form-data"}})
-    .then((up)=>{
-      console.log(up);
-      if(up.data.status===200){
-          alert("Data saved successfully");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to publish this post?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Publish",
+      cancelButtonText: "Cancel"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .post('http://localhost:3003/TechBlog/AddPost/', newPostData, {
+            headers: { "Content-Type": "multipart/form-data" }
+          })
+          .then((up) => {
+            if (up.data.status === 200) {
+              Swal.fire({
+                icon: "success",
+                title: "Post Published!",
+                text: "Your blog post has been successfully published. Once approved by admin, it will be on the profile",
+                confirmButtonText: "View Posts"
+              }).then(() => {
+                navigate("/UserProfile");
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Failed to save the post. Please try again.",
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            Swal.fire({
+              icon: "error",
+              title: "Server Error",
+              text: "Something went wrong. Contact admin.",
+            });
+          });
       }
-      else if(up.data.status===404){
-          alert(`Error occured`);
-      }
-    })
-    .catch((err)=>{
-      console.log(err);
-      alert("Something went wrong. Contact admin");
-    })
-  }
-  
+    });
+  };
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <div className="newpost-main-container">
         <h2 className="newpost-title">Create a New Blog Post</h2>
         <form onSubmit={SubmitForm} className="newpost-form">
-          
+
           <div className="newpost-form-group">
             <label htmlFor="title" className="newpost-label">Title</label>
             <input
@@ -117,9 +145,6 @@ function NewPost() {
               <option value="Gadgets">Gadgets</option>
               <option value="Mobile Phones">Mobile Phones</option>
               <option value="Technology">Technology</option>
-
-
-              {/* Add more if needed */}
             </select>
           </div>
 
@@ -153,9 +178,9 @@ function NewPost() {
           </div>
         </form>
       </div>
-      <Footer/>
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default NewPost
+export default NewPost;

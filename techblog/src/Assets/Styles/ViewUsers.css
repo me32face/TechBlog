@@ -1,9 +1,23 @@
-/* Main Page */
-.View-User-main-page {
-  padding: 40px 20px;
-  background: linear-gradient(135deg, #fceabb, #f8b500);
+/* Container that offsets the sidebar width */
+.admin-home-main-content {
+  margin-left: 220px; /* width of sidebar */
+  padding: 20px;
   min-height: 100vh;
+  background: linear-gradient(135deg, #fceabb, #f8b500);
   font-family: "Segoe UI", sans-serif;
+}
+
+/* Responsive: On small screens, remove left margin and add padding */
+@media (max-width: 768px) {
+  .admin-home-main-content {
+    margin-left: 0;
+    padding: 15px;
+  }
+}
+
+/* Main Page Container inside the margin wrapper */
+.View-User-main-page {
+  padding: 40px 0; /* top & bottom padding only */
 }
 
 /* Table Container */
@@ -126,4 +140,20 @@
   font-size: 15px;
   color: #424242;
   margin-bottom: 8px;
+}
+
+/* Responsive for Modal image and text alignment */
+@media (max-width: 576px) {
+  .profile-card {
+    flex-direction: column !important;
+  }
+
+  .profile-picture {
+    max-width: 120px;
+    margin: 0 auto 20px auto;
+  }
+
+  .profile-info {
+    text-align: center;
+  }
 }

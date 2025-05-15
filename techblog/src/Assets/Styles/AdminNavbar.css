@@ -1,66 +1,150 @@
-.unique-admin-navbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #1d1d1d;
+/* Sidebar base */
+.sidebar-admin-navbar {
+  width: 220px;
+  height: 100vh;
+  background-color: #1f1f2e;
   color: white;
-  padding: 15px 20px;
-  position: relative;
-  flex-wrap: wrap;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transition: transform 0.3s ease;
 }
 
-.unique-navbar-logo h3 {
+/* Sidebar content */
+.sidebar-admin-logo {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.sidebar-admin-links {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
   margin: 0;
 }
 
-.menu-toggle-checkbox {
-  display: none;
-}
-
-.menu-toggle-label {
-  font-size: 26px;
-  cursor: pointer;
-  display: none;
-  color: white;
-}
-
-.unique-navbar-links {
-  display: flex;
-  gap: 20px;
-}
-
-.unique-navbar-link {
+.sidebar-admin-link {
+  padding: 15px 20px;
   text-decoration: none;
   color: white;
-  font-weight: 500;
-  transition: color 0.3s ease;
+  transition: background 0.3s ease;
+  text-align: left;
+  border: none;
+  background: none;
+  font-size: 1rem;
 }
 
-.unique-navbar-link:hover {
-  color: #00bcd4;
+.sidebar-admin-link:hover {
+  background-color: #292944;
+  cursor: pointer;
 }
 
-/* Mobile styles */
+.logout-button {
+  width: 100%;
+  text-align: left;
+}
+
+/* Hamburger icon for small screens */
+.admin-hamburger-icon {
+  display: none;
+  font-size: 2rem;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  color: white;
+  background-color: #1f1f2e;
+  padding: 8px 12px;
+  border-radius: 4px;
+  z-index: 1100;
+  cursor: pointer;
+}
+
+/* Close button inside sidebar (small devices) */
+.admin-close-btn {
+  display: none;
+  font-size: 2rem;
+  text-align: right;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* Hide checkbox */
+.admin-sidebar-toggle {
+  display: none;
+}
+
+/* RESPONSIVE - Collapse for mobile */
 @media (max-width: 768px) {
-  .menu-toggle-label {
+  .sidebar-admin-navbar {
+    transform: translateX(-100%);
+    position: fixed;
+  }
+
+  .admin-sidebar-toggle:checked ~ .sidebar-admin-navbar {
+    transform: translateX(0);
+  }
+
+  .admin-hamburger-icon {
     display: block;
   }
 
-  .unique-navbar-links {
-    flex-direction: column;
-    width: 100%;
-    background-color: #2c2c2c;
-    display: none;
-    padding: 10px 0;
+  .admin-close-btn {
+    display: block;
   }
+}
 
-  .menu-toggle-checkbox:checked + .menu-toggle-label + .unique-navbar-logo + .unique-navbar-links {
-    display: flex;
+/* Padding for main content */
+.admin-home-main-content {
+  margin-left: 220px;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .admin-home-main-content {
+    margin-left: 0;
+    padding: 20px;
   }
+}
 
-  .unique-navbar-link {
-    padding: 10px;
-    text-align: center;
-    border-top: 1px solid #444;
+/* Hamburger Icon Base */
+.admin-hamburger-icon {
+  display: none;
+  font-size: 2rem;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  color: white;
+  background-color: #1f1f2e;
+  padding: 8px 12px;
+  border-radius: 4px;
+  z-index: 1100;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Show/Hide Animation */
+.admin-hamburger-icon.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.admin-hamburger-icon.hide {
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
+}
+
+/* Show on small screens only */
+@media (max-width: 768px) {
+  .admin-hamburger-icon {
+    display: block;
   }
 }
