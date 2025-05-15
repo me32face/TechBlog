@@ -74,3 +74,7 @@
   background-color: #f8d7da;
   border-radius: 4px;
 }
+
+.swal2-timer-progress-bar {
+  background-color: green !important;
+}

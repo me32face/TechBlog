@@ -32,7 +32,10 @@ function AllPosts() {
         <h2 className="allposts-page-title">All Blog Posts</h2>
         <div className="container">
           <div className="row">
-            {posts.map((post, index) => (
+            {posts
+            .slice()
+            .reverse()
+            .map((post, index) => (
               <div
                 className="col-md-4 mb-4 allposts-col"
                 key={post._id}

@@ -259,7 +259,10 @@ function UserProfile() {
           <h2 className="mb-4 your-post-h2-userprofile">Your Posts</h2>
           <div className="row">
             {posts.length > 0 ? (
-              posts.map((post) => (
+              posts
+              .slice()
+              .reverse()
+              .map((post) => (
                 <div className="col-md-4 mb-4" key={post._id}>
                   <div className="card user-post-card h-100">
                     <img

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../Assets/Styles/AdminLogin.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function AdminLogin() {
   const [username, setUsername] = useState('');
@@ -9,14 +10,29 @@ function AdminLogin() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  const handleLoginSuccess = () => {
+    localStorage.setItem("isAdminLoggedIn", true);
+    Swal.fire({
+      title: 'Logged in ✅!',
+      text: 'Welcome',
+      icon: 'success',
+      timer: 1000,
+      timerProgressBar: true,
+      showConfirmButton: false
+    })
+    .then(() => {
+    navigate('/dashboard');
+    });
+  };
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     axios
       .post("http://localhost:3003/Techblog/AdminLogin", { username, password })
       .then((response) => {
-        localStorage.setItem("isAdminLoggedIn", true);
-        navigate('/dashboard');
+        handleLoginSuccess();
       })
       .catch((error) => {
         setError("Invalid username or password.");

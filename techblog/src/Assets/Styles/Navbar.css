@@ -29,6 +29,12 @@
   animation: pulseBrand 0.8s ease-in-out;
 }
 
+.custom-navbar-brand::selection {
+  color: #00ccff;
+  text-decoration: none;
+  animation: pulseBrand 0.8s ease-in-out;
+}
+
 @keyframes pulseBrand {
   0% {
     transform: scale(1);
