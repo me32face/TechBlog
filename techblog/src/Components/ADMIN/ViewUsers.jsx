@@ -39,6 +39,10 @@ function ViewUsers() {
       });
   }, []);
 
+
+};
+
+
   return (
     <div className="admin-page-container">
       <AdminNavbar />
@@ -64,11 +68,17 @@ function ViewUsers() {
                     <td>
                       <button
                         type="button"
-                        className="btn btn-info ViewProfileButton"
+                        className="btn btn-info ViewProfileButton me-2"
                         data-bs-toggle="modal"
                         data-bs-target={`#modal-${user._id}`}
                       >
                         View Profile
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleDelete(user._id, user.fullName)}
+                      >
+                        Delete
                       </button>
 
                       <div

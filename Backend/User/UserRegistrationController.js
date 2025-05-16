@@ -219,5 +219,33 @@ const UpdateUserProfile = ((req, res) => {
         });
 });
 
+const DeleteUserUsingId = ((req,res)=>{
+    const userId = req.params.id;
 
-module.exports={adduser,upload,viewUserData,userLogin,ViewUsers,ForgotPassword,UserProfile,UpdateUserProfile}
+    userschema.findByIdAndDelete(userId)
+    .then((deletedUser) => {
+        if (!deletedUser) {
+            return res.json({
+                msg: "User not found",
+                status: 404
+            });
+        }
+
+        res.json({
+            msg: `The user with username:${deletedUser.username} deleted successfully`,
+            status: 200,
+            data: deletedUser
+        });
+    })
+    .catch((err) => {
+        console.log(err);
+        res.json({
+            msg: "Failed to delete user",
+            status: 500,
+            error: err
+        });
+    });
+})
+
+
+module.exports={adduser,upload,viewUserData,userLogin,ViewUsers,ForgotPassword,UserProfile,UpdateUserProfile,DeleteUserUsingId}
