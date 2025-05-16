@@ -13,6 +13,8 @@ Router.post("/AdminLogin", adminController.adminLogin);
 Router.get("/admin/pending-posts", postController.getPendingPosts);
 Router.put("/admin/approve-posts/:id", postController.approvePost);
 Router.get("/admin-dashboard", adminController.getDashboardCounts);
+Router.delete("/DeleteUser/:id", userController.DeleteUserUsingId);
+
 
 
 

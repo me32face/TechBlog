@@ -39,6 +39,35 @@ function ViewUsers() {
       });
   }, []);
 
+  const handleDelete = (userId, fullName) => {
+  Swal.fire({
+    title: `Delete ${fullName}?`,
+    text: "This action cannot be undone!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "Cancel",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      axios
+        .delete(`http://localhost:3003/TechBlog/DeleteUser/${userId}`)
+        .then((res) => {
+          if (res.data.status === 200) {
+            Swal.fire("Deleted!", res.data.msg, "success");
+            // Refresh user list
+            setUsers((prev) => prev.filter((u) => u._id !== userId));
+          } else {
+            Swal.fire("Error!", res.data.msg, "error");
+          }
+        })
+        .catch((err) => {
+          Swal.fire("Failed!", "An error occurred.", "error");
+        });
+    }
+  });
+};
+
+
   return (
     <div className="admin-page-container">
       <AdminNavbar />
@@ -64,11 +93,17 @@ function ViewUsers() {
                     <td>
                       <button
                         type="button"
-                        className="btn btn-info ViewProfileButton"
+                        className="btn btn-info ViewProfileButton me-2"
                         data-bs-toggle="modal"
                         data-bs-target={`#modal-${user._id}`}
                       >
                         View Profile
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleDelete(user._id, user.fullName)}
+                      >
+                        Delete
                       </button>
 
                       <div
