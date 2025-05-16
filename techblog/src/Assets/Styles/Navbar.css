@@ -178,9 +178,33 @@
   transition: background-color 0.3s ease;
 }
 
+
 .custom-login-btn:hover {
   background-color: #cfe814 !important;
 }
+
+.custom-login-btn-register{
+  background-color: #00b4cc !important;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin-right: 0px !important;
+  height: 32px;
+  transition: background-color 0.3s ease;
+}
+
+.custom-login-btn-register:hover{
+  background-color: #14e882 !important;
+}
+
+  .custom-login-btn, 
+  .custom-login-btn-register{
+    margin: 10px;
+  }
+
+
 
 /* LOGOUT BUTTON */
 .btn-outline-danger {
@@ -197,9 +221,10 @@
     gap: 10px;
   }
 
-  .custom-login-btn,
-  .custom-search-btn {
+  .custom-login-btn, 
+  .custom-login-btn-register{
     width: 100%;
+    margin: 10px;
   }
 
   .custom-search-input {
@@ -268,7 +293,7 @@
 .profile-icon-nav{
   text-decoration: none;
   color: white;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: cursive;
   display: flex;
   align-items: center;
   padding: 0px 10px;
@@ -283,4 +308,18 @@
 .logout-icon-nav:hover{
   transform: scale(1.4);
   color: red !important;
+}
+
+.animated-username {
+  font-weight: bold;
+  color: #ddf507;
+  text-decoration: none;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+
+.animated-username:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 10px #23f507, 0 0 20px #23f507;
+  color: rgb(212, 0, 255);
 }

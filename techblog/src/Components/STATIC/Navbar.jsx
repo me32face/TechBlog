@@ -1,20 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import '../../Assets/Styles/Navbar.css';
+import Swal from 'sweetalert2';
+
 
 function Navbar() {
 
   const [username, setUsername] = useState("");
 
   useEffect(() => {
-    const storedUsername = localStorage.getItem("username");  
+    const storedUsername = localStorage.getItem("username");
     if (storedUsername) setUsername(storedUsername);
   }, []);
 
-  const handleLogout = () => {
+const handleLogout = () => {
+  try {
     localStorage.clear();
     setUsername("");
-    window.location.href = "/";
-  };
+    Swal.fire({
+      icon: 'success',
+      title: 'Logged out successfully!',
+      text: 'You have been logged out.',
+      timer: 500,
+      showConfirmButton: false,
+      timerProgressBar: true,
+    }).then(() => {
+      window.location.href = "/";
+    });
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Logout Failed',
+      text: 'An error occurred while logging out.',
+    });
+  }
+};
 
   return (
     <div className="mainNavbar">
@@ -46,54 +65,33 @@ function Navbar() {
                 <a className="nav-link custom-navbar-link" href="/AllPosts">All Posts</a>
               </li>
               <li className="nav-item">
-                <a className="nav-link custom-navbar-link" href="#recent-posts">Recent Posts</a>
+                <a className="nav-link custom-navbar-link" href="/#recent-posts">Recent Posts</a>
               </li>
-              {/* <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle custom-navbar-link" href="#" role="button"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul className="dropdown-menu custom-dropdown-bg">
-                  <li><a className="dropdown-item custom-dropdown-item" href="#">Action</a></li>
-                  <li><a className="dropdown-item custom-dropdown-item" href="#">Another action</a></li>
-                  <li><a className="dropdown-item custom-dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li> */}
             </ul>
 
-            {/* Search Form inside Collapse */}
-            <form className="d-flex custom-search-wrapper mt-3 mt-lg-0" role="search">
-              {/* <input className="form-control form-control-sm custom-search-input me-2" type="search" placeholder="Search" aria-label="Search" />
-              <button className="btn btn-sm custom-search-btn" type="submit">Search</button> */}
-
+            {/* Right-side actions */}
+            <div className="d-flex align-items-center gap-2 mt-3 mt-lg-0">
               {username ? (
                 <>
-
-                  <a href="/UserProfile" className='profile-icon-nav'>
-                    <i className="fas fa-user p-2" style={{ fontSize: '24px', color: '#23f507' }}></i>{username}
+                  <a href="/UserProfile" className='profile-icon-nav animated-username'>
+                    <i className="fas fa-user p-2" style={{ fontSize: '24px', color: '#23f507' }}></i>
+                    {username}
                   </a>
-
-
-                  {/* <a href="/UserProfile" className="btn btn-sm custom-login-btn d-flex me-2">
-                  <i className="fas fa-user" style={{ fontSize: '24px', color: 'blue' }}></i>
-                  {username}
-                  </a> */}
-
-                  {/* <button className="btn btn-sm btn-outline-danger" type="button" onClick={handleLogout}>
-                    Logout
-                  </button> */}
-
                   <button onClick={handleLogout} className='logout-button-nav'>
                     <i className="fas fa-sign-out-alt p-2 logout-icon-nav" style={{ fontSize: '24px', color: 'white' }}></i>
                   </button>
                 </>
               ) : (
-                <a href="/UserLogin" className="btn btn-sm custom-login-btn">
-                  Login
-                </a>
+                <div className='navbar-reg-log-btns'>
+                  <a href="/User-Registration" className="btn btn-sm custom-login-btn-register">
+                    Register
+                  </a>
+                  <a href="/UserLogin" className="btn btn-sm custom-login-btn">
+                    Login
+                  </a>
+                </div>
               )}
-
-            </form>
+            </div>
           </div>
         </div>
       </nav>
