@@ -39,7 +39,32 @@ function ViewUsers() {
       });
   }, []);
 
-
+  const handleDelete = (userId, fullName) => {
+  Swal.fire({
+    title: `Delete ${fullName}?`,
+    text: "This action cannot be undone!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "Cancel",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      axios
+        .delete(`http://localhost:3003/TechBlog/DeleteUser/${userId}`)
+        .then((res) => {
+          if (res.data.status === 200) {
+            Swal.fire("Deleted!", res.data.msg, "success");
+            // Refresh user list
+            setUsers((prev) => prev.filter((u) => u._id !== userId));
+          } else {
+            Swal.fire("Error!", res.data.msg, "error");
+          }
+        })
+        .catch((err) => {
+          Swal.fire("Failed!", "An error occurred.", "error");
+        });
+    }
+  });
 };
 
 
