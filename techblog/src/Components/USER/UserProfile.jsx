@@ -249,6 +249,9 @@ function UserProfile() {
                 >
                   Edit Profile
                 </button>
+                <a href="/ForgotPassword">
+                  <button className="btn btn-primary m-2">Forgot Password</button>
+                </a>
               </div>
             </div>
           </div>

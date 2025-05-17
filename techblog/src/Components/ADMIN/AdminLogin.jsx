@@ -16,7 +16,7 @@ function AdminLogin() {
       title: 'Logged in ✅!',
       text: 'Welcome',
       icon: 'success',
-      timer: 1000,
+      timer: 500,
       timerProgressBar: true,
       showConfirmButton: false
     })

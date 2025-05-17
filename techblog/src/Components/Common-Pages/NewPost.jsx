@@ -16,7 +16,7 @@ function NewPost() {
       Swal.fire({
         icon: "warning",
         title: "Login Required",
-        text: "You must be logged in to access this page.",
+        text: "You must be a user and  logged in to access this page.",
       }).then(() => {
         navigate("/UserLogin");
       });
