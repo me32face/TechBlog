@@ -8,7 +8,6 @@ import AdminLogin from './Components/ADMIN/AdminLogin';
 import UserLogin from './Components/USER/UserLogin';
 import Navbar from './Components/STATIC/Navbar';
 import Home from './Components/Common-Pages/Home';
-import Categories from './Components/STATIC/Categories';
 import UserRegistration from './Components/USER/UserRegistration';
 import ViewUsers from './Components/ADMIN/ViewUsers';
 import ForgotPassword from './Components/USER/ForgotPassword';
@@ -34,7 +33,6 @@ function App() {
           <Route path='/UserLogin' element={<UserLogin/>} />
           <Route path='/NavBar' element={<Navbar/>} />
           <Route path='/' element={<Home/>}/>
-          <Route path='/Categories' element={<Categories/>}/>
           <Route path='/User-Registration' element={<UserRegistration/>}/>
           <Route path='/ManageUsers' element={<ViewUsers/>}/>
           <Route path='/ForgotPassword' element={<ForgotPassword/>}/>

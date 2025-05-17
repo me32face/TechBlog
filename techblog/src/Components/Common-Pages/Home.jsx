@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../STATIC/Navbar";
-import Categories from "../STATIC/Categories";
 import "../../Assets/Styles/Home.css";
 import Footer from "../STATIC/Footer";
 import axios from "axios";

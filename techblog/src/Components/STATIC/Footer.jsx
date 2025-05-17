@@ -1,51 +1,46 @@
-import React from 'react'
-import "../../Assets/Styles/Footer.css"
+import React from 'react';
+import "../../Assets/Styles/Footer.css";
 
 function Footer() {
   return (
-    <div>
+    <div className="footer-section-main">
+      <footer className="footer-bg-dark text-light pt-4 pb-3">
+        <div className="container">
+          <div className="row">
+            <hr className="footer-divider pb-3" />
 
-            <footer class="bg-dark text-light pt-4 pb-3">
-        <div class="container">
-            <div class="row">
-            <hr class="bg-secondary hr-Bg-Editting pb-3" />
-
-
-            
-            <div class="col-md-4 mb-3">
-                <h5>Tech Blog</h5>
-                <p class="small">A place to explore tech updates, articles, and tips.</p>
+            <div className="col-md-4 mb-3 footer-block">
+              <h5 className="footer-title">Tech Blog</h5>
+              <p className="footer-description">
+                A place to explore tech updates, articles, and tips.
+              </p>
             </div>
 
-            
-            <div class="col-md-4 mb-3">
-                <h6>Navigation</h6>
-                <ul class="list-unstyled">
-                <li><a href="/" class="text-light text-decoration-none">Home</a></li>
-                <li><a href="/latest" class="text-light text-decoration-none">Latest</a></li>
-                <li><a href="/categories" class="text-light text-decoration-none">Categories</a></li>
-                <li><a href="/about" class="text-light text-decoration-none">About</a></li>
-                </ul>
+            <div className="col-md-4 mb-3 footer-block">
+              <h6 className="footer-subtitle">Navigation</h6>
+              <ul className="list-unstyled footer-links">
+                <li><a href="/" className="footer-link">Home</a></li>
+                <li><a href="/latest" className="footer-link">Latest</a></li>
+                <li><a href="/categories" className="footer-link">Categories</a></li>
+                <li><a href="/about" className="footer-link">About</a></li>
+              </ul>
             </div>
 
-            
-            <div class="col-md-4 mb-3">
-                <h6>Contact</h6>
-                <p class="small mb-1">Email: <a href="mailto:techblog@example.com" class="text-light text-decoration-none">techblog@example.com</a>
-                </p>
-                <p class="small mb-0">Phone: +123 456 7890</p>
+            <div className="col-md-4 mb-3 footer-block">
+              <h6 className="footer-subtitle">Contact</h6>
+              <p className="footer-contact">Email: <a href="mailto:techblog@example.com" className="footer-link">techblog@example.com</a></p>
+              <p className="footer-contact">Phone: +123 456 7890</p>
             </div>
+          </div>
 
-            </div>
-            <hr class="bg-secondary" />
-            <div class="text-center small">
+          <hr className="footer-divider" />
+          <div className="text-center footer-copy">
             &copy; 2025 Tech Blog. All rights reserved.
-            </div>
+          </div>
         </div>
-        </footer>
-
+      </footer>
     </div>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
